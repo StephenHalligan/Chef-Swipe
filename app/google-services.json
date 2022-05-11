@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "937863378428",
+    "project_id": "chef-swipe",
+    "storage_bucket": "chef-swipe.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:937863378428:android:8fdd6e59d36abc97882e79",
+        "android_client_info": {
+          "package_name": "com.example.chefswipe"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "937863378428-6ij2cg2f9j6t6fi4n7gc5ms6toefo5j2.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.chefswipe",
+            "certificate_hash": "de5005c9c47c785c904a117cc1a2661d2d7b2280"
+          }
+        },
+        {
+          "client_id": "937863378428-g1del3hha046knjfrc6g9757pj9kdguf.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC0woDmHtfqr0oIaQ5xSrRKs7ROQQRQaZc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "937863378428-g1del3hha046knjfrc6g9757pj9kdguf.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
