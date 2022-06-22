@@ -1,17 +1,17 @@
 package com.example.chefswipe.Cards;
 
-import java.util.List;
-
 public class Cards {
+
     private String recipeId;
     private String recipeName;
     private String recipeURL;
+    private String recipeTags;
 
-
-    public Cards(String recipeId, String recipeName, String recipeURL) {
+    public Cards(String recipeId, String recipeName, String recipeURL, String recipeTags) {
         this.recipeId = recipeId;
         this.recipeName = recipeName;
         this.recipeURL = recipeURL;
+        this.recipeTags = recipeTags;
     }
 
     //Getters & setters recipeId
@@ -37,5 +37,14 @@ public class Cards {
     public void setRecipeURL(String recipeURL) {
         this.recipeURL = recipeURL;
     }
+
+    //Getters & setters recipeTags
+   public String getRecipeTags() {
+        return recipeTags;
+    }
+    public void setRecipeTags(String recipeTags) {
+        this.recipeTags = recipeTags;
+    }
+
 
 }

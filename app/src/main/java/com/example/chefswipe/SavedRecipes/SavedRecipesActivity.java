@@ -8,16 +8,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-
-import com.example.chefswipe.Cards.Cards;
 import com.example.chefswipe.MainActivity;
 import com.example.chefswipe.R;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -27,7 +21,6 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,11 +28,7 @@ import java.util.Objects;
 
 public class SavedRecipesActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
 
-    private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mSavedAdapter;
-    private RecyclerView.LayoutManager mSavedLayoutManager;
-
-    private DatabaseReference userDb;
 
     FirebaseFirestore db = FirebaseFirestore.getInstance();
 
@@ -64,10 +53,10 @@ public class SavedRecipesActivity extends AppCompatActivity implements BottomNav
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
         currentUserID = Objects.requireNonNull(mAuth.getCurrentUser()).getUid();
 
-        mRecyclerView = (RecyclerView) findViewById(R.id.recyclerView);
+        RecyclerView mRecyclerView = (RecyclerView) findViewById(R.id.recyclerView);
         mRecyclerView.setNestedScrollingEnabled(false);
         mRecyclerView.setHasFixedSize(true);
-        mSavedLayoutManager = new LinearLayoutManager(SavedRecipesActivity.this);
+        RecyclerView.LayoutManager mSavedLayoutManager = new LinearLayoutManager(SavedRecipesActivity.this);
         mRecyclerView.setLayoutManager(mSavedLayoutManager);
         mSavedAdapter = new SavedAdapter(getDataSetSavedRecipes(), SavedRecipesActivity.this);
         mRecyclerView.setAdapter(mSavedAdapter);
@@ -78,7 +67,7 @@ public class SavedRecipesActivity extends AppCompatActivity implements BottomNav
 
         String userId = Objects.requireNonNull(mAuth.getCurrentUser()).getUid();
 
-        userDb = FirebaseDatabase.getInstance().getReference().child("Users").child(userId);
+        DatabaseReference userDb = FirebaseDatabase.getInstance().getReference().child("Users").child(userId);
 
         DatabaseReference ref = userDatabase.getReference().child("Users").child(userId);
         ref.addValueEventListener(new ValueEventListener() {
@@ -119,6 +108,7 @@ public class SavedRecipesActivity extends AppCompatActivity implements BottomNav
 
         DatabaseReference savedDb = FirebaseDatabase.getInstance().getReference().child("Users").child(currentUserID).child("Saved Recipes").child(key);
         savedDb.addListenerForSingleValueEvent(new ValueEventListener() {
+            @SuppressLint("NotifyDataSetChanged")
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if (snapshot.exists()) {
@@ -128,10 +118,8 @@ public class SavedRecipesActivity extends AppCompatActivity implements BottomNav
                     colRef.get().addOnCompleteListener(task -> {
                         if (task.isSuccessful()) {
                             for (QueryDocumentSnapshot document : task.getResult()) {
-                                if (document.getString("Name").equals(recipeName)) {
-                                    System.out.println("test");
-                                    recipeURL = document.getString("Image URL");
-                                    System.out.println(recipeURL);
+                                if (Objects.equals(document.getString("Name"), recipeName)) {
+                                    recipeURL = document.getString("URL");
 
                                     SavedObject obj = new SavedObject(recipeName, recipeURL);
                                     resultsSavedRecipes.add(obj);
@@ -152,11 +140,12 @@ public class SavedRecipesActivity extends AppCompatActivity implements BottomNav
 
     }
 
-    private ArrayList<SavedObject> resultsSavedRecipes = new ArrayList<SavedObject>();
+    private final ArrayList<SavedObject> resultsSavedRecipes = new ArrayList<>();
     private List<SavedObject> getDataSetSavedRecipes() {
         return resultsSavedRecipes;
     }
 
+    @SuppressLint("NonConstantResourceId")
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         Intent intent;
         switch (item.getItemId()) {

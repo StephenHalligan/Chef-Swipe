@@ -8,23 +8,12 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
-
 import com.bumptech.glide.Glide;
 import com.example.chefswipe.R;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
-
-import org.w3c.dom.Text;
 
 import java.util.List;
 
 public class arrayAdapter extends ArrayAdapter<Cards> {
-    
-    Context context;
 
     public arrayAdapter(Context context, int resourceId, List<Cards> items) {
         super(context, resourceId, items);
@@ -39,7 +28,6 @@ public class arrayAdapter extends ArrayAdapter<Cards> {
 
         TextView recipeName = (TextView) convertView.findViewById(R.id.recipeName);
         ImageView recipeImage = (ImageView) convertView.findViewById(R.id.recipeImage);
-
 
         recipeName.setText(card_item.getRecipeName());
         Glide.with(getContext()).load(card_item.getRecipeURL()).into(recipeImage);

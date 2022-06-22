@@ -1,34 +1,77 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".RegisterActivity"
+    tools:context=".LoginRegistry.RegisterActivity"
     android:orientation="vertical">
 
     <EditText
+        android:layout_marginTop="180sp"
+        app:layout_constraintTop_toTopOf="parent"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Name"
         android:id="@+id/Name"/>
 
     <EditText
+        app:layout_constraintTop_toTopOf="@id/Name"
+        android:layout_marginTop="50sp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Email"
         android:id="@+id/Email"/>
 
     <EditText
+        app:layout_constraintTop_toTopOf="@id/Email"
+        android:layout_marginTop="50sp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Password"
         android:id="@+id/Password"/>
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_marginBottom="20dp"
+        android:layout_marginTop="20dp"
+        android:background="#c0c0c0"
+        android:id="@+id/HorLine"
+        app:layout_constraintEnd_toEndOf="@+id/Password"
+        app:layout_constraintStart_toStartOf="@+id/Password"
+        app:layout_constraintTop_toBottomOf="@id/Password"/>
+
+    <TextView
+        android:id="@+id/SelectCookbookText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Select your cookbook!"
+        android:layout_marginTop="20dp"
+        android:textSize="17dp"
+        app:layout_constraintEnd_toEndOf="@+id/HorLine"
+        app:layout_constraintStart_toStartOf="@+id/HorLine"
+        app:layout_constraintTop_toBottomOf="@id/HorLine">
+    </TextView>
+
+    <Spinner
+        style="@android:style/Widget.Material.Spinner.Underlined"
+        android:id="@+id/cookbook_spinner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10sp"
+        android:layout_marginBottom="15sp"
+        android:gravity="center"
+        app:layout_constraintEnd_toEndOf="@+id/SelectCookbookText"
+        app:layout_constraintStart_toStartOf="@+id/SelectCookbookText"
+        app:layout_constraintTop_toBottomOf="@id/SelectCookbookText" />
+
     <Button
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginBottom="90sp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Register"
         android:id="@+id/Register"/>
 
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

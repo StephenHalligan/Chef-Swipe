@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">ChefSwipe</string>
+    <string name="app_name">Chef Swipe</string>
     <string name="title_activity_settings">SettingsActivity</string>
 
     <!-- Preference Titles -->
@@ -16,4 +16,11 @@
     <string name="attachment_summary_on">Automatically download attachments for incoming emails
     </string>
     <string name="attachment_summary_off">Only download attachments when manually requested</string>
+
+    <string-array name="cookbook_array">
+        <item>Dips</item>
+        <item>Cakes</item>
+        <item>Side Dishes</item>
+        <item>Soups</item>
+    </string-array>
 </resources>

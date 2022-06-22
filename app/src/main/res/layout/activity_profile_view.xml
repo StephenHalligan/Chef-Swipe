@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ProfileViewActivity"
+    android:orientation="vertical">
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_marginBottom="20dp"
+        android:layout_marginTop="50dp"
+        android:background="#c0c0c0"
+        android:id="@+id/HorLine"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <TextView
+        android:id="@+id/SelectCookbookText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Select your cookbook!"
+        android:layout_marginTop="20dp"
+        android:textSize="17dp"
+        app:layout_constraintEnd_toEndOf="@+id/HorLine"
+        app:layout_constraintStart_toStartOf="@+id/HorLine"
+        app:layout_constraintTop_toBottomOf="@id/HorLine">
+    </TextView>
+
+    <Spinner
+        style="@android:style/Widget.Material.Spinner.Underlined"
+        android:id="@+id/cookbook_spinner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="65sp"
+        android:layout_marginBottom="15sp"
+        android:gravity="center"
+        app:layout_constraintTop_toBottomOf="@id/HorLine"
+        android:spinnerMode="dialog"
+        />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_marginBottom="20dp"
+        android:layout_marginTop="20dp"
+        android:background="#c0c0c0"
+        android:id="@+id/UnderSpinnerLine"
+        app:layout_constraintEnd_toEndOf="@id/cookbook_spinner"
+        app:layout_constraintStart_toStartOf="@id/cookbook_spinner"
+        app:layout_constraintTop_toBottomOf="@id/cookbook_spinner"/>
+
+
+    <FrameLayout
+        android:id="@+id/frameLayout"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@id/bottomNavigation"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottomNavigation"
+        android:layout_width="match_parent"
+        android:layout_height="75dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:menu="@menu/bottom_nav_menu">
+    </com.google.android.material.bottomnavigation.BottomNavigationView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

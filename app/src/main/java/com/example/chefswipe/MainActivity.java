@@ -1,19 +1,13 @@
 package com.example.chefswipe;
 
-import static java.lang.Integer.parseInt;
 import static java.lang.String.valueOf;
 
 import android.annotation.SuppressLint;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.Layout;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ListView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.chefswipe.SavedRecipes.SavedRecipesActivity;
@@ -34,21 +28,15 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.firestore.CollectionReference;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.lorentzos.flingswipe.SwipeFlingAdapterView;
 
-import org.w3c.dom.Text;
-
-//Implement onFlingListener
 public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
 
     private static final String TAG = "Chef Swipe";
-
-    private Cards cards_data[];
-
     private Cards Item;
 
     private DatabaseReference userDb;
@@ -59,17 +47,13 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
     private com.example.chefswipe.Cards.arrayAdapter arrayAdapter;
 
     //Need to initialize index on registration **IMPORTANT**
-    int recipeIndex = 0;
     String userCookbook;
 
     String dbRecipeName;
 
     FirebaseFirestore db = FirebaseFirestore.getInstance();
 
-    ListView listView;
     List<Cards> rowItems;
-
-    ArrayList<Boolean> veganArray = new ArrayList<>();
 
     BottomNavigationView bottomNavigation;
 
@@ -92,8 +76,6 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         //Choose adapter
         arrayAdapter = new arrayAdapter(this, R.layout.item, rowItems);
 
-        int maxRecipeIndex = 13;
-
         //set the listener and the adapter
         flingContainer.setAdapter(arrayAdapter);
 
@@ -105,24 +87,17 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         userDb = FirebaseDatabase.getInstance().getReference().child("Users").child(userId);
 
         DatabaseReference ref = userDatabase.getReference().child("Users").child(userId);
+
         ref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
-                recipeIndex = Objects.requireNonNull(dataSnapshot).child("Recipe Index").getValue(Integer.class);
+                if(!dataSnapshot.hasChild("Diet Filter")) userDb.child("Diet Filter").setValue("None");
+
                 userCookbook = dataSnapshot.child("Cookbook").getValue(String.class);
 
                 TextView cookbookTitle = (TextView) findViewById(R.id.cookbookTitle);
                 cookbookTitle.setText(userCookbook);
-
-                if(recipeIndex > maxRecipeIndex-1) {
-                    rowItems.clear();
-                    recipeIndex = 0;
-                    DatabaseReference currentUserDb = FirebaseDatabase.getInstance().getReference().child("Users").child(userId).child("Recipe Index");
-                    currentUserDb.setValue(recipeIndex);
-                }
-
-                assert userCookbook != null;
 
                 getRecipe();
 
@@ -142,18 +117,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
                 //Delete an object from the Adapter (/AdapterView)
                 rowItems.remove(0);
 
-                if(recipeIndex > (maxRecipeIndex-1)) {
-                    recipeIndex = 0;
-                    rowItems.clear();
-                }
-                else {
-                    recipeIndex++;
-                }
-
                 Log.d("LIST", "removed object!");
-
-                DatabaseReference currentUserDb = FirebaseDatabase.getInstance().getReference().child("Users").child(userId).child("Recipe Index");
-                currentUserDb.setValue(recipeIndex);
 
             }
 
@@ -170,6 +134,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
                 Cards obj = (Cards) dataObject;
                 dbRecipeName = obj.getRecipeName();
                 userDb.child("Saved Recipes").child(dbRecipeName).removeValue();
+                updateArrayAdapter();
             }
 
             //Called when card is swiped to right
@@ -177,7 +142,8 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
             public void onRightCardExit(Object dataObject) {
                 Cards obj = (Cards) dataObject;
                 dbRecipeName = obj.getRecipeName();
-                userDb.child("Saved Recipes").child(dbRecipeName).setValue(true);
+                userDb.child("Saved Recipes").child(obj.getRecipeName()).setValue(true);
+                updateArrayAdapter();
             }
 
             @Override
@@ -194,36 +160,46 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
     }
 
     public void updateArrayAdapter() {
+
+        TextView veganTag = (TextView) findViewById(R.id.veganTag);
+        veganTag.setVisibility(View.GONE);
+        TextView vegetarianTag = (TextView) findViewById(R.id.vegetarianTag);
+        vegetarianTag.setVisibility(View.GONE);
+        TextView glutenFreeTag = (TextView) findViewById(R.id.glutenFreeTag);
+        glutenFreeTag.setVisibility(View.GONE);
+
         arrayAdapter.notifyDataSetChanged();
+        if (!rowItems.isEmpty()) {
+            if (rowItems.get(0).getRecipeTags().contains("Vegan")) {
+                veganTag.setVisibility(View.VISIBLE);
+            }
+            if (rowItems.get(0).getRecipeTags().contains("Vegetarian")) {
+                vegetarianTag.setVisibility(View.VISIBLE);
+            }
+            if (rowItems.get(0).getRecipeTags().contains("Gluten Free")) {
+                glutenFreeTag.setVisibility(View.VISIBLE);
+            }
+        }
+
     }
 
     public void getRecipe() {
-        CollectionReference colRef = db.collection(userCookbook);
-        colRef.whereGreaterThan("Recipe ID", recipeIndex).orderBy("Recipe ID").get().addOnCompleteListener(task -> {
-            if (task.isSuccessful()) {
-                for (DocumentSnapshot document : task.getResult()) {
+        Query colRef = db.collection(userCookbook);
 
-                    Item = new Cards(document.getString("Name"), document.getString("Name"), document.getString("Image URL"));
+        colRef.get().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                for (QueryDocumentSnapshot document : task.getResult()) {
+
+                    Item = new Cards(document.getString("Name"), document.getString("Name"), document.getString("URL"), document.getString("Tags"));
                     rowItems.add(Item);
                     updateArrayAdapter();
-
-
-                    veganArray.add(document.getBoolean("Vegan"));
-                    TextView veganTag = (TextView) findViewById(R.id.veganTag);
-                    veganTag.setVisibility(View.VISIBLE);
-                    System.out.println(veganArray.get(0));
-                    if (!veganArray.get(0)) {
-                        veganTag.setVisibility(View.GONE);
-                    }
-
-
                 }
-                veganArray.clear();
-
             }
 
+            else {
+                Log.d(TAG, "Error getting documents: ", task.getException());
+            }
         });
-
     }
 
     @SuppressLint("NonConstantResourceId")
@@ -242,7 +218,10 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
                 return true;
 
             case R.id.profile:
-                System.out.println("profile");
+                intent = new Intent(MainActivity.this, ProfileViewActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                startActivity(intent);
+                finish();
                 return true;
         }
 
