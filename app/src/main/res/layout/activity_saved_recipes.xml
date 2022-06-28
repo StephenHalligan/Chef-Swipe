@@ -35,6 +35,18 @@
         app:layout_constraintTop_toTopOf="parent">
     </FrameLayout>
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="No recipes saved!"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:textColor="#c0c0c0"
+        android:textSize="30dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginBottom="80dp"
+        />
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNavigation"
         android:layout_width="match_parent"

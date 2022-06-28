@@ -33,7 +33,8 @@ public class RegisterActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         firebaseAuthStateListener = firebaseAuth -> {
             final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-            //Check if user is logged in
+
+            //Check if user is logged in, and launches MainActivity
             if (user != null) {
                 Intent intent = new Intent(RegisterActivity.this, MainActivity.class);
                 startActivity(intent);
@@ -58,11 +59,13 @@ public class RegisterActivity extends AppCompatActivity {
             final String email = mEmail.getText().toString();
             final String password = mPassword.getText().toString();
             mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(RegisterActivity.this, task -> {
+
                 //Check is registration fails
                 if(!task.isSuccessful()) {
                     Toast.makeText(RegisterActivity.this, "Sign-up Error", Toast.LENGTH_SHORT).show();
                 }
 
+                //If registration is successful
                 else {
                     String userId = Objects.requireNonNull(mAuth.getCurrentUser()).getUid();
                     DatabaseReference currentUserDb = FirebaseDatabase.getInstance().getReference().child("Users").child(userId).child("Name");
@@ -79,6 +82,9 @@ public class RegisterActivity extends AppCompatActivity {
         });
 
     }
+
+
+    //Kills & creates authstatelistener
 
     @Override
     protected void onStart() {

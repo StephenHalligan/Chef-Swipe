@@ -67,7 +67,8 @@
         app:layout_constraintTop_toBottomOf="@id/SelectCookbookText" />
 
     <Button
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/SelectCookbookText"
+        android:layout_marginTop="80dp"
         android:layout_marginBottom="90sp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

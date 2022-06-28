@@ -11,21 +11,30 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
+import android.widget.TextView;
+
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import com.example.chefswipe.SavedRecipes.SavedRecipesActivity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.Objects;
 
 public class ProfileViewActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
 
+    private DatabaseReference userDb;
+
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener firebaseAuthStateListener;
     BottomNavigationView bottomNavigation;
+
+    String userCookbook;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,19 +51,25 @@ public class ProfileViewActivity extends AppCompatActivity implements BottomNavi
             final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         };
 
+        FirebaseDatabase userDatabase = FirebaseDatabase.getInstance();
+        FirebaseAuth mAuth = FirebaseAuth.getInstance();
+
+        String userId = Objects.requireNonNull(mAuth.getCurrentUser()).getUid();
+
+        userDb = FirebaseDatabase.getInstance().getReference().child("Users").child(userId);
+
+        DatabaseReference ref = userDatabase.getReference().child("Users").child(userId);
+
         Spinner spinner = (Spinner) findViewById(R.id.cookbook_spinner);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.cookbook_array, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
-        //spinner.setSelection();
 
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
 
 
-
             //MAKE THIS CLEANER
-
 
 
 

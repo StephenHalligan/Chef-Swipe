@@ -5,11 +5,12 @@
       <map>
         <entry key="app/src/main/res/drawable/ic_baseline_arrow_drop_down_24.xml" value="0.1025" />
         <entry key="app/src/main/res/drawable/spinner_layout.xml" value="0.141" />
+        <entry key="app/src/main/res/layout/activity_login.xml" value="0.16990814208984376" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_profile_view.xml" value="0.218768310546875" />
         <entry key="app/src/main/res/layout/activity_recipeview.xml" value="0.16470489501953126" />
         <entry key="app/src/main/res/layout/activity_register.xml" value="0.23777173913043478" />
-        <entry key="app/src/main/res/layout/activity_saved_recipes.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/activity_saved_recipes.xml" value="0.10075564589797024" />
         <entry key="app/src/main/res/layout/item.xml" value="0.1" />
         <entry key="app/src/main/res/layout/item_savedrecipes.xml" value="0.2990493774414063" />
       </map>

@@ -94,6 +94,10 @@ public class SavedRecipesActivity extends AppCompatActivity implements BottomNav
                         FetchSavedRecipeInformation(savedRecipe.getKey());
                     }
                 }
+
+                if (!dataSnapshot.exists()) {
+
+                }
             }
 
             @Override

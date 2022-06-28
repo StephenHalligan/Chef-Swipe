@@ -15,9 +15,6 @@
             android:name=".SavedRecipes.SavedRecipesActivity"
             android:exported="false" />
         <activity
-            android:name=".LoginRegistry.LoginActivity"
-            android:exported="false" />
-        <activity
             android:name=".LoginRegistry.RegisterActivity"
             android:exported="false" />
         <activity
@@ -27,7 +24,7 @@
             android:name=".ProfileViewActivity"
             android:exported="false" />
         <activity
-            android:name=".LoginRegistry.ChooseLoginOrRegisterActivity"
+            android:name=".LoginRegistry.LoginActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

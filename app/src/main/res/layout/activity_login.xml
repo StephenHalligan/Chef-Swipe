@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -8,21 +8,53 @@
     android:orientation="vertical">
 
     <EditText
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="75dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Email"
         android:id="@+id/Email"/>
 
     <EditText
+        app:layout_constraintTop_toBottomOf="@id/Email"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Password"
         android:id="@+id/Password"/>
 
     <Button
+        app:layout_constraintTop_toBottomOf="@id/Password"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Login"
         android:id="@+id/Login"/>
 
-</LinearLayout>
+    <View
+        app:layout_constraintBottom_toTopOf="@id/newUser"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_marginTop="80dp"
+        android:background="#c0c0c0"
+        android:layout_marginBottom="20dp"
+        android:id="@+id/HorLine" />
+
+    <TextView
+        app:layout_constraintBottom_toTopOf="@id/Register"
+        android:id="@+id/newUser"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="15dp"
+        android:textSize="20sp"
+        android:gravity="center"
+        android:text="New user?"/>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:layout_marginBottom="80dp"
+        android:text="Register"
+        android:id="@+id/Register"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

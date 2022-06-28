@@ -38,6 +38,7 @@ public class LoginActivity extends AppCompatActivity {
         };
 
         Button mLogin = (Button) findViewById(R.id.Login);
+        Button mRegister = (Button) findViewById(R.id.Register);
 
         mEmail = (EditText) findViewById(R.id.Email);
         mPassword = (EditText) findViewById(R.id.Password);
@@ -53,6 +54,14 @@ public class LoginActivity extends AppCompatActivity {
                 }
             });
         });
+
+        //Register button
+        mRegister.setOnClickListener(view -> {
+            Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
+            startActivity(intent);
+            finish();
+        });
+
     }
 
     @Override

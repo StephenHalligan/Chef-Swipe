@@ -64,7 +64,6 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         setContentView(R.layout.activity_main);
 
         bottomNavigation = findViewById(R.id.bottomNavigation);
-
         bottomNavigation.setOnNavigationItemSelectedListener(this);
         bottomNavigation.setSelectedItemId(R.id.home);
 
@@ -159,6 +158,8 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 
     }
 
+
+    //Updates array adapter & changes visibility of tags
     public void updateArrayAdapter() {
 
         TextView veganTag = (TextView) findViewById(R.id.veganTag);
