@@ -9,6 +9,9 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.TextView;
+
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.example.chefswipe.MainActivity;
 import com.example.chefswipe.R;
@@ -90,13 +93,11 @@ public class SavedRecipesActivity extends AppCompatActivity implements BottomNav
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()) {
+                    TextView noRecipes = (TextView) findViewById(R.id.noRecipes);
+                    noRecipes.setVisibility(View.GONE);
                     for (DataSnapshot savedRecipe : dataSnapshot.getChildren()) {
                         FetchSavedRecipeInformation(savedRecipe.getKey());
                     }
-                }
-
-                if (!dataSnapshot.exists()) {
-
                 }
             }
 

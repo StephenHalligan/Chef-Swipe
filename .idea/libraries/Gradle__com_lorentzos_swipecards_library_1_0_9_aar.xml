@@ -1,9 +1,9 @@
 <component name="libraryTable">
   <library name="Gradle: com.lorentzos.swipecards:library:1.0.9@aar">
     <CLASSES>
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/a0e179c1e91a77f586f88689bda4c4e5/transformed/jetified-library-1.0.9/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/a0e179c1e91a77f586f88689bda4c4e5/transformed/jetified-library-1.0.9/res" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/a0e179c1e91a77f586f88689bda4c4e5/transformed/jetified-library-1.0.9/AndroidManifest.xml" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/c2d9434ab93a5daa39f2c0daaf765672/transformed/jetified-library-1.0.9/AndroidManifest.xml" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/c2d9434ab93a5daa39f2c0daaf765672/transformed/jetified-library-1.0.9/res" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/c2d9434ab93a5daa39f2c0daaf765672/transformed/jetified-library-1.0.9/jars/classes.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />
