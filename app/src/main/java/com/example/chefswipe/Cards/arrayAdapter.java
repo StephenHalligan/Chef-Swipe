@@ -35,6 +35,7 @@ public class arrayAdapter extends ArrayAdapter<Cards> {
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.item, parent, false);
         }
 
+        // Import xml
         TextView recipeAuthor = (TextView) convertView.findViewById(R.id.recipeAuthor);
         TextView recipeName = (TextView) convertView.findViewById(R.id.recipeName);
         TextView recipeLikes = (TextView) convertView.findViewById(R.id.recipeLikes);
