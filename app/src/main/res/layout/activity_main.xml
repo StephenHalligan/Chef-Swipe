@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/activity_main_constraint"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    tools:context=".MainActivity">
+
+    <include layout="@layout/item"/>
+
+    <FrameLayout
+        android:id="@+id/clone_container"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@id/bottomNavigation"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintVertical_bias="0.7">
+
+        <ImageView
+            android:id="@+id/heart_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_heart" />
+    </FrameLayout>
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottomNavigation"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:theme="@style/ThemeOverlay.BottomNavView"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:menu="@menu/bottom_nav_menu">
+    </com.google.android.material.bottomnavigation.BottomNavigationView>
+
+    <com.lorentzos.flingswipe.SwipeFlingAdapterView
+        android:id="@+id/frame"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        app:rotation_degrees="20.5"
+        tools:context=".MyActivity" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:background="@drawable/border"
+        android:id="@+id/titleBar"
+        android:backgroundTint="@color/green1">
+
+        <com.skydoves.powerspinner.PowerSpinnerView
+            android:id="@+id/cookbookSpinner"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:background="@drawable/box_border"
+            android:backgroundTint="@color/green1"
+            android:foreground="?attr/selectableItemBackground"
+            android:hint=""
+            android:textColor="@color/darkgrey"
+            android:textColorHint="@color/darkgrey"
+            android:textSize="30sp"
+            android:fontFamily="sans-serif-condensed-medium"
+            android:gravity="start"
+            android:paddingStart="8dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:spinner_arrow_gravity="end"
+            app:spinner_arrow_animate_duration="@integer/material_motion_duration_medium_1"
+            app:spinner_arrow_padding="7dp"
+            app:spinner_arrow_tint="@color/mediumgrey"
+            android:layout_marginBottom="-10dp"
+            app:spinner_divider_color="@color/black"
+            app:spinner_divider_show="true"
+            app:spinner_divider_size="0.85dp"
+            app:spinner_popup_width="600dp"
+            app:spinner_popup_focusable="true"
+            app:spinner_item_array="@array/cookbook_array"
+            app:spinner_popup_animation="dropdown"
+            app:spinner_popup_background="@color/green1"
+            app:spinner_popup_elevation="14dp" />
+
+        <ImageButton
+            android:id="@+id/filterButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="5dp"
+            app:tint="@color/darkgrey"
+            android:background="@android:color/transparent"
+            android:elevation="2dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_filter" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

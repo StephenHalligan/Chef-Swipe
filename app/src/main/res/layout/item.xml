@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_gravity="center"
+    app:layout_constraintTop_toTopOf="parent"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingLeft="20sp"
+    android:paddingRight="20sp"
+    android:background="@drawable/rounded_box"
+    android:outlineProvider="bounds"
+    android:clipToPadding="false">
+
+    <androidx.cardview.widget.CardView
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/recipeName"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:layout_marginBottom="220dp"
+        app:cardCornerRadius="10dp"
+        android:elevation="2dp"
+        android:id="@+id/cardView">
+
+        <FrameLayout
+            android:id="@+id/frameLayout"
+            android:layout_gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="400dp"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/recipeImage"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop" />
+
+        </FrameLayout>
+
+    </androidx.cardview.widget.CardView>
+
+    <TextView
+        android:fontFamily="sans-serif-condensed-medium"
+        android:id="@+id/recipeName"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/cardView"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="40dp"
+        android:layout_marginBottom="4dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:textColor="#434343"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        tools:text="Recipe Name"/>
+
+    <TextView
+        android:id="@+id/recipeAuthor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:textStyle="bold"
+        android:fontFamily="sans-serif-condensed"
+        android:text="By: ChefSwipe Team"
+        android:textColor="#434343"
+        android:textSize="23sp"
+        app:layout_constraintBottom_toBottomOf="@+id/recipeLikes"
+        app:layout_constraintStart_toStartOf="@id/cardView"
+        app:layout_constraintTop_toTopOf="@+id/recipeLikes" />
+
+    <TextView
+        android:id="@+id/recipeLikes"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="5dp"
+        android:layout_marginTop="8dp"
+        android:fontFamily="sans-serif-condensed"
+        android:text="♥"
+        android:textStyle="bold"
+        android:textColor="#434343"
+        android:textSize="23sp"
+        app:layout_constraintEnd_toEndOf="@id/cardView"
+        app:layout_constraintTop_toBottomOf="@+id/cardView" />
+
+    <LinearLayout
+        android:id="@+id/tagsLinearLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_marginTop="15dp"
+        android:gravity="center"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/recipeAuthor">
+
+        <TextView
+            android:id="@+id/tag1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:layout_marginLeft="5sp"
+            android:layout_marginRight="5sp"
+            android:animateLayoutChanges="true"
+            android:background="@drawable/rounded_corner"
+            android:backgroundTint="@color/pastelPurple"
+            android:gravity="center"
+            android:includeFontPadding="false"
+            android:paddingLeft="10sp"
+            android:paddingTop="3sp"
+            android:paddingRight="10sp"
+            android:paddingBottom="3sp"
+            android:text=""
+            android:textColor="#363636"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/tag2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:layout_marginLeft="5sp"
+            android:layout_marginRight="5sp"
+            android:animateLayoutChanges="true"
+            android:background="@drawable/rounded_corner"
+            android:backgroundTint="@color/pastelYellow"
+            android:gravity="center"
+            android:includeFontPadding="false"
+            android:paddingLeft="10sp"
+            android:paddingTop="3sp"
+            android:paddingRight="10sp"
+            android:paddingBottom="3sp"
+            android:text=""
+            android:textColor="#363636"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            android:visibility="gone"
+            tools:ignore="MissingConstraints" />
+
+        <TextView
+            android:id="@+id/tag3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:layout_marginLeft="5sp"
+            android:layout_marginRight="5sp"
+            android:animateLayoutChanges="true"
+            android:background="@drawable/rounded_corner"
+            android:backgroundTint="@color/pastelBlue"
+            android:gravity="center"
+            android:includeFontPadding="false"
+            android:paddingLeft="10sp"
+            android:paddingTop="3sp"
+            android:paddingRight="10sp"
+            android:paddingBottom="3sp"
+            android:text=""
+            android:textColor="#363636"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            android:visibility="gone"
+            tools:ignore="MissingConstraints" />
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/recipeDesc"
+        android:fontFamily="sans-serif-condensed"
+        android:textSize="20sp"
+        android:text="testtesttesttesttesttesttesttest test test tetstetetete t ete e etetesttesttest test test tetstetetete t ete e etetesttesttest test test tetstetetete t ete e ete"
+        android:textColor="#434343"
+        android:background="@drawable/rounded_corner"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:visibility="visible"
+        app:layout_constraintStart_toStartOf="@+id/cardView"
+        app:layout_constraintTop_toBottomOf="@id/tagsLinearLayout"
+        />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".LoginRegistry.RegisterActivity"
+    android:orientation="vertical">
+
+
+    <ImageView
+        android:id="@+id/mainImg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:alpha="0.35"
+        android:layout_marginTop="-50dp"
+        android:background="@drawable/border_box"
+        android:scaleType="centerCrop"
+        android:adjustViewBounds="true"
+        android:focusable="true"
+        app:srcCompat="@drawable/foodimg"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/welcomeMsg"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/verylightgrey"
+        android:foregroundGravity="center"
+        android:gravity="center_horizontal"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
+        android:alpha="0.8"
+        android:text="Welcome to Chef Swipe"
+        android:textColor="@color/black"
+        android:textSize="35sp"
+        android:textStyle="bold"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="@id/mainImg"
+        tools:layout_editor_absoluteX="0dp" />
+
+    <View
+        android:id="@+id/HorLine2"
+        android:layout_width="match_parent"
+        android:layout_height="3dp"
+        android:background="#c0c0c0"
+        app:layout_constraintTop_toBottomOf="@id/mainImg" />
+
+
+    <EditText
+        android:layout_marginTop="40sp"
+        app:layout_constraintTop_toTopOf="@id/HorLine2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Name"
+        android:background="@drawable/rounded_box"
+        android:backgroundTint="@color/verylightgrey"
+        android:paddingHorizontal="15dp"
+        android:layout_marginHorizontal="15dp"
+        android:paddingVertical="4dp"
+        android:id="@+id/Name"/>
+
+    <EditText
+        app:layout_constraintTop_toTopOf="@id/Name"
+        android:layout_marginTop="50sp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Email"
+        android:background="@drawable/rounded_box"
+        android:backgroundTint="@color/verylightgrey"
+        android:paddingHorizontal="15dp"
+        android:layout_marginHorizontal="15dp"
+        android:paddingVertical="4dp"
+        android:id="@+id/Email"/>
+
+    <EditText
+        app:layout_constraintTop_toTopOf="@id/Email"
+        android:layout_marginTop="50sp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Password"
+        android:background="@drawable/rounded_box"
+        android:backgroundTint="@color/verylightgrey"
+        android:paddingHorizontal="15dp"
+        android:layout_marginHorizontal="15dp"
+        android:paddingVertical="4dp"
+        android:id="@+id/Password"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_marginBottom="20dp"
+        android:layout_marginTop="40dp"
+        android:background="#c0c0c0"
+        android:id="@+id/HorLine"
+        app:layout_constraintEnd_toEndOf="@+id/Password"
+        app:layout_constraintStart_toStartOf="@+id/Password"
+        app:layout_constraintTop_toBottomOf="@id/Password"/>
+
+
+    <Button
+        app:layout_constraintTop_toBottomOf="@id/HorLine"
+        android:layout_marginTop="40dp"
+        android:layout_marginBottom="90sp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Register"
+        android:id="@+id/Register"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

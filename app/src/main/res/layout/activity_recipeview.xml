@@ -1,0 +1,257 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:background="@drawable/border"
+            android:id="@+id/titleBar"
+            android:backgroundTint="@color/green1">
+
+            <ImageButton
+                android:id="@+id/backButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                app:tint="@color/darkgrey"
+                android:background="@android:color/transparent"
+                android:elevation="2dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/ic_backarrow" />
+
+            <TextView
+                android:id="@+id/cookbookText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="@id/titleBar"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                android:textSize="30sp"
+                android:fontFamily="sans-serif-condensed-medium"
+                android:text=""/>
+
+            <ImageButton
+                android:id="@+id/deleteButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="5dp"
+                app:tint="@color/darkgrey"
+                android:background="@android:color/transparent"
+                android:elevation="2dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/ic_outline_delete_forever_24" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        <TextView
+            android:id="@+id/recipeName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/titleBar"
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:layout_marginTop="12sp"
+            android:textSize="35sp"
+            android:gravity="center"
+            android:text=""
+            android:textStyle="bold"
+            />
+
+        <ImageView
+            android:id="@+id/recipeImage"
+            android:layout_width="300dp"
+            android:layout_height="400dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="18sp"
+            android:gravity="center"
+            android:scaleType="centerCrop"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/recipeName"
+            />
+
+        <Button
+            android:id="@+id/recipeAuthor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2.5dp"
+            android:backgroundTint="@color/white"
+            android:text="By:"
+            android:textColor="@color/black"
+            android:textSize="15dp"
+            android:visibility="invisible"
+            app:layout_constraintStart_toStartOf="@+id/recipeImage"
+            app:layout_constraintTop_toBottomOf="@id/recipeImage" />
+
+        <TextView
+            android:id="@+id/recipeLikes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:fontFamily="sans-serif-condensed"
+            android:text="♥"
+            android:textColor="#434343"
+            android:textSize="20dp"
+            android:textStyle="bold"
+            android:layout_marginRight="10dp"
+            app:layout_constraintRight_toLeftOf="@id/commentsButton"
+            app:layout_constraintTop_toBottomOf="@id/recipeImage" />
+
+        <ImageButton
+            android:background="@color/white"
+            android:id="@+id/commentsButton"
+            android:layout_marginTop="11.8dp"
+            app:layout_constraintEnd_toEndOf="@+id/recipeImage"
+            app:layout_constraintTop_toBottomOf="@id/recipeImage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_baseline_chat_24"/>
+
+        <LinearLayout
+            android:id="@+id/tagsLinearLayout"
+            app:layout_constraintTop_toBottomOf="@id/recipeAuthor"
+            android:layout_marginTop="20sp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:gravity="center">
+
+
+            <TextView
+                android:id="@+id/tag1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:layout_marginLeft="5sp"
+                android:layout_marginRight="5sp"
+                android:animateLayoutChanges="true"
+                android:background="@drawable/rounded_corner"
+                android:backgroundTint="@color/pastelPurple"
+                android:gravity="center"
+                android:includeFontPadding="false"
+                android:paddingLeft="10sp"
+                android:paddingTop="3sp"
+                android:paddingRight="10sp"
+                android:paddingBottom="3sp"
+                android:text=""
+                android:textColor="#363636"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                android:visibility="gone" />
+
+            <TextView
+                android:id="@+id/tag2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:layout_marginLeft="5sp"
+                android:layout_marginRight="5sp"
+                android:animateLayoutChanges="true"
+                android:background="@drawable/rounded_corner"
+                android:backgroundTint="@color/pastelYellow"
+                android:gravity="center"
+                android:includeFontPadding="false"
+                android:paddingLeft="10sp"
+                android:paddingTop="3sp"
+                android:paddingRight="10sp"
+                android:paddingBottom="3sp"
+                android:text=""
+                android:textColor="#363636"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                android:visibility="gone"
+                tools:ignore="MissingConstraints" />
+
+            <TextView
+                android:id="@+id/tag3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:layout_marginLeft="5sp"
+                android:layout_marginRight="5sp"
+                android:animateLayoutChanges="true"
+                android:background="@drawable/rounded_corner"
+                android:backgroundTint="@color/pastelBlue"
+                android:gravity="center"
+                android:includeFontPadding="false"
+                android:paddingLeft="10sp"
+                android:paddingTop="3sp"
+                android:paddingRight="10sp"
+                android:paddingBottom="3sp"
+                android:text=""
+                android:textColor="#363636"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                android:visibility="gone"
+                tools:ignore="MissingConstraints" />
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/ingredientsText"
+            android:textStyle="bold"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_constraintTop_toBottomOf="@id/tagsLinearLayout"
+            android:layout_marginTop="20sp"
+            android:layout_marginLeft="15sp"
+            android:layout_marginBottom="10sp"
+            android:layout_marginRight="15dp"
+            android:text="Ingredients"
+            android:textSize="30sp">
+        </TextView>
+
+        <TextView
+            android:id="@+id/ingredientsView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_constraintTop_toBottomOf="@id/ingredientsText"
+            android:layout_marginTop="25sp"
+            android:layout_marginLeft="30sp"
+            android:layout_marginRight="15dp"
+            android:textSize="25sp">
+        </TextView>
+
+        <TextView
+            android:id="@+id/methodText"
+            android:textStyle="bold"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_constraintTop_toBottomOf="@id/ingredientsView"
+            android:layout_marginLeft="15sp"
+            android:layout_marginBottom="10sp"
+            android:layout_marginRight="15dp"
+            android:text="Method"
+            android:textSize="30sp">
+        </TextView>
+
+        <TextView
+            android:id="@+id/methodView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_constraintTop_toBottomOf="@id/methodText"
+            android:layout_marginTop="25sp"
+            android:layout_marginLeft="30sp"
+            android:layout_marginBottom="10sp"
+            android:layout_marginRight="15dp"
+            android:textSize="25sp">
+        </TextView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</ScrollView>
