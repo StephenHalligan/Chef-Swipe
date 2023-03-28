@@ -1,7 +1,7 @@
 # Chef-Swipe
+## CREATED 23/09/2022
 ## Final year project for Stephen Halligan, at Technological University Dublin
-### CREATED 23/09/2022
-### Thesis report document available as Final Report C19332291.pdf
+## Thesis report document available as Final Report C19332291.pdf
 
 There is no doubt that as technology advances, things like books and newspapers are falling behind. A large contributing factor to the downfall of print medium is the rise of eBooks and digital media. It’s undeniable that technology is becoming a staple of day-to-day living, which leaves us with the question; what will happen to print media in another 10 years? With deforestation becoming a larger issue than ever before, [14] the world is looking at other solutions to this old style of sharing content, and in this case – recipes. Instead of continually printing new books which must then be disposed of once used, the globe is turning to technology to meet its’ media-sharing needs.
 
