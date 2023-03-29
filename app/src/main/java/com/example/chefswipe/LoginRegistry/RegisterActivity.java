@@ -67,8 +67,6 @@ public class RegisterActivity extends AppCompatActivity {
                     currentUserDb.setValue(name);
                     currentUserDb = FirebaseDatabase.getInstance().getReference().child("Users").child(userId).child("Bio");
                     currentUserDb.setValue("Default bio");
-                    currentUserDb = FirebaseDatabase.getInstance().getReference().child("Users").child(userId).child("Saved Recipes");
-                    currentUserDb.setValue("");
                     currentUserDb = FirebaseDatabase.getInstance().getReference().child("Users").child(userId).child("Friends");
                     currentUserDb.setValue(0);
                 }
