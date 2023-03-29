@@ -351,12 +351,8 @@ public class ProfileViewActivity extends AppCompatActivity implements BottomNavi
                 return true;
 
             case R.id.profile:
-                intent = new Intent(ProfileViewActivity.this, ProfileViewActivity.class);
-                startActivity(intent);
-                overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
-                finish();
-                return true;        }
-
+                return true;
+        }
         return true;
     }
 
