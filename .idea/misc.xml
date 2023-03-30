@@ -3,6 +3,7 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="app/src/main/res/drawable/ic_outline_image.xml" value="0.125" />
         <entry key="app/src/main/res/layout/activity_saved_recipes.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_shopping_list.xml" value="0.1" />
         <entry key="app/src/main/res/layout/item_savedrecipes.xml" value="0.1" />
