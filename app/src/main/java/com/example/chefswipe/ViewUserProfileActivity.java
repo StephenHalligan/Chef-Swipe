@@ -1,26 +1,16 @@
 package com.example.chefswipe;
 
 import android.annotation.SuppressLint;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
-import android.media.Image;
 import android.os.Bundle;
-import android.text.Editable;
 import android.view.MenuItem;
 import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.bumptech.glide.Glide;
 import com.example.chefswipe.PublishedRecipes.PublishedAdapter;
 import com.example.chefswipe.PublishedRecipes.PublishedObject;
@@ -37,10 +27,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
-
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -51,17 +38,22 @@ public class ViewUserProfileActivity extends AppCompatActivity implements Bottom
 
     private RecyclerView.Adapter mPublishedAdapter;
 
+    //Database ref
     FirebaseFirestore db = FirebaseFirestore.getInstance();
 
+    //user id
     private String currentUserID;
 
+    //user friends count
     int currentFriendsCount;
 
+    //firebase auth
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener firebaseAuthStateListener;
+    //bottom nav
     BottomNavigationView bottomNavigation;
 
-
+    //array for published recipes
     private final ArrayList<PublishedObject> resultsPublishedRecipes = new ArrayList<>();
     private List<PublishedObject> getDataSetPublishedRecipes() {
         return resultsPublishedRecipes;
@@ -72,31 +64,37 @@ public class ViewUserProfileActivity extends AppCompatActivity implements Bottom
     @SuppressLint("ResourceAsColor")
     @Override
     protected void onCreate(Bundle publishedInstanceState) {
+        //set xml and get bundle info
         super.onCreate(publishedInstanceState);
         Bundle bundle = getIntent().getExtras();
         setContentView(R.layout.activity_view_user_profile);
 
+        //bottom navigation
         bottomNavigation = findViewById(R.id.bottomNavigation);
-
         bottomNavigation.setOnNavigationItemSelectedListener(this);
         bottomNavigation.setSelectedItemId(R.id.profile);
 
+        //get authentication
         mAuth = FirebaseAuth.getInstance();
         firebaseAuthStateListener = firebaseAuth -> {
             final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         };
 
+        //get instance of database
         FirebaseDatabase userDatabase = FirebaseDatabase.getInstance();
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
 
+        //get user id from bundle
         String userId = bundle.getString("AuthorID");
 
+        //get user id from database
         DatabaseReference ref = userDatabase.getReference().child("Users").child(userId);
 
         Button mFollowButton = (Button) findViewById(R.id.followButton);
 
         String userID = bundle.getString("AuthorID");
 
+        //load profile image of user using glide
         ImageView mProfileImage = (ImageView) findViewById(R.id.profileImage);
         ref.child("ProfileImage").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
             @Override
@@ -109,6 +107,7 @@ public class ViewUserProfileActivity extends AppCompatActivity implements Bottom
             }
         });
 
+        //follow button when clicked
         ref.child("FriendList").child(userID).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DataSnapshot> task) {
@@ -120,24 +119,32 @@ public class ViewUserProfileActivity extends AppCompatActivity implements Bottom
         });
 
         DatabaseReference currentUserDb = FirebaseDatabase.getInstance().getReference().child("Users");
-
         TextView mUserFriendsCount = (TextView) findViewById(R.id.friendCount);
 
+        //onclick listener for follow button
         mFollowButton.setOnClickListener(view -> {
             switch (mFollowButton.getText().toString()) {
+                //if user isn't following, when they click make them follow
                 case "Follow":
+                    //add them to database as friends
                     currentUserDb.child(userId).child("FriendList").child(bundle.getString("AuthorID")).setValue(true);
+                    //add 1 to friends count
                     currentFriendsCount = currentFriendsCount + 1;
                     currentUserDb.child(userID).child("Friends").setValue(currentFriendsCount);
                     mFollowButton.setBackgroundResource(R.color.verylightgrey);
+                    //set text
                     mFollowButton.setText("Unfollow");
                     mUserFriendsCount.setText(String.valueOf(currentFriendsCount));
                     break;
+                //if user is following, when they click make them unfollow
                 case "Unfollow":
+                    //remove from database as friends
                     currentUserDb.child(userId).child("FriendList").child(bundle.getString("AuthorID")).removeValue();
+                    //remove 1 from friends count
                     currentFriendsCount = currentFriendsCount - 1;
                     currentUserDb.child(userID).child("Friends").setValue(currentFriendsCount);
                     mFollowButton.setBackgroundResource(R.color.green1);
+                    //set text
                     mFollowButton.setText("Follow");
                     mUserFriendsCount.setText(String.valueOf(currentFriendsCount));
                     break;
@@ -146,6 +153,7 @@ public class ViewUserProfileActivity extends AppCompatActivity implements Bottom
 
         TextView mUserBio = (TextView) findViewById(R.id.bioView);
 
+        //set username text
         ref.child("Name").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DataSnapshot> task) {
@@ -156,6 +164,7 @@ public class ViewUserProfileActivity extends AppCompatActivity implements Bottom
             }
         });
 
+        //set bio text
         ref.child("Bio").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DataSnapshot> task) {
@@ -165,6 +174,7 @@ public class ViewUserProfileActivity extends AppCompatActivity implements Bottom
             }
         });
 
+        //set friends count as an integer
         ref.child("Friends").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DataSnapshot> task) {
@@ -178,6 +188,7 @@ public class ViewUserProfileActivity extends AppCompatActivity implements Bottom
 
         currentUserID = Objects.requireNonNull(mAuth.getCurrentUser()).getUid();
 
+        //init recyclerview for published recipes
         RecyclerView mRecyclerView = (RecyclerView) findViewById(R.id.publishedRecyclerView);
         mRecyclerView.setNestedScrollingEnabled(true);
         mRecyclerView.setHasFixedSize(true);
@@ -185,7 +196,6 @@ public class ViewUserProfileActivity extends AppCompatActivity implements Bottom
         mRecyclerView.setLayoutManager(mPublishedLayoutManager);
         mPublishedAdapter = new PublishedAdapter(getDataSetPublishedRecipes(), ViewUserProfileActivity.this);
         mRecyclerView.setAdapter(mPublishedAdapter);
-
         getPublishedRecipeName();
 
     }
@@ -210,6 +220,7 @@ public class ViewUserProfileActivity extends AppCompatActivity implements Bottom
 
     }
 
+    //get published recipes
     private void FetchPublishedRecipeInformation(String key) {
 
         DatabaseReference publishedDb = FirebaseDatabase.getInstance().getReference().child("Users").child(currentUserID).child("Published Recipes").child(key);
@@ -220,15 +231,19 @@ public class ViewUserProfileActivity extends AppCompatActivity implements Bottom
                 if (snapshot.exists()) {
                     String recipeID = snapshot.getKey();
 
+                    //collection ref for cookbook & cycle through documents
                     CollectionReference colRef = db.collection("Cookbook");
                     colRef.get().addOnCompleteListener(task -> {
                         if (task.isSuccessful()) {
                             for (QueryDocumentSnapshot document : task.getResult()) {
+                                //if doc is retrieved and id equals the user's published recipe id
                                 if (Objects.equals(document.getId(), recipeID)) {
                                     String recipeURL = document.getString("URL");
                                     String recipeName = document.getString("Name");
 
+                                    //add object with recipe name, url, and id as a new object
                                     PublishedObject obj = new PublishedObject(recipeName, recipeURL, recipeID);
+                                    //add object to published recipes
                                     resultsPublishedRecipes.add(obj);
 
                                     mPublishedAdapter.notifyDataSetChanged();
@@ -247,6 +262,7 @@ public class ViewUserProfileActivity extends AppCompatActivity implements Bottom
 
     }
 
+    //bottom nav bar
     @SuppressLint("NonConstantResourceId")
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 
@@ -282,6 +298,7 @@ public class ViewUserProfileActivity extends AppCompatActivity implements Bottom
         return true;
     }
 
+    //start auth state listener
     @Override
     protected void onStart() {
         super.onStart();

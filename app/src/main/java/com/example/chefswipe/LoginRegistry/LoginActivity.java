@@ -38,9 +38,11 @@ public class LoginActivity extends AppCompatActivity {
             }
         };
 
+        //Buttons for login and register
         Button mLogin = (Button) findViewById(R.id.Login);
         Button mRegister = (Button) findViewById(R.id.Register);
 
+        //Edittext for email and pass
         mEmail = (EditText) findViewById(R.id.Email);
         mPassword = (EditText) findViewById(R.id.Password);
 

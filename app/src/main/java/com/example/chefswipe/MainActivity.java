@@ -276,38 +276,50 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
                         @Override
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                             if(Objects.equals(userCookbook, "All Cookbooks")) {
+                                //If author id is null, set it
                                 if(document.getString("AuthorID") == null) {
                                     DocumentReference authorID = db.collection("Cookbook").document(document.getId());
                                     authorID.update("AuthorID", "");
                                 }
+                                //If author is null, set it
                                 if(document.getString("Author") == null) {
                                     DocumentReference author = db.collection("Cookbook").document(document.getId());
                                     author.update("Author", "ChefSwipe team");
                                 }
+                                //If approved is null, set it
                                 if(document.getBoolean("Approved") == null) {
                                     DocumentReference author = db.collection("Cookbook").document(document.getId());
                                     author.update("Approved", true);
                                 }
+                                //If likes is null, set it
                                 if(document.getLong("Likes") == null) {
                                     DocumentReference author = db.collection("Cookbook").document(document.getId());
                                     author.update("Likes", 0);
                                 }
+                                //Get recipes which contain user tag filters if they exist
                                 if (!dataSnapshot.child("Saved Recipes").hasChild(document.getId()) && Boolean.TRUE.equals(document.getBoolean("Approved"))  && Objects.requireNonNull(document.getString("Tags")).contains(userTagFilter)) {
+                                    //Create new item with the retrieved document id, name etc.
                                     Item = new Cards(document.getId(), document.getString("Name"), document.getString("URL"), document.getString("Tags"), document.getString("Author"), Objects.requireNonNull(document.getLong("Likes")).intValue(), document.getString("Desc"));
+                                    //Add this item to rowItems
                                     rowItems.add(Item);
+                                    //Update adapter
                                     updateArrayAdapter();
                                 }
                             }
                             else {
+                                //Get recipes which contain user tag filters and cookbook
                                 if (!dataSnapshot.child("Saved Recipes").hasChild(document.getId()) && Boolean.TRUE.equals(document.getBoolean("Approved")) && (Objects.equals(document.getString("Cookbook"), userCookbook)) && Objects.requireNonNull(document.getString("Tags")).contains(userTagFilter)) {
+                                    //Create new item with the retrieved document id, name etc.
                                     Item = new Cards(document.getId(), document.getString("Name"), document.getString("URL"), document.getString("Tags"), document.getString("Author"), Objects.requireNonNull(document.getLong("Likes")).intValue(), document.getString("Desc"));
+                                    //Add this item to rowItems
                                     rowItems.add(Item);
+                                    //Update adapter
                                     updateArrayAdapter();
                                 }
                             }
 
                         }
-
+                        //If recipe read fails
                         @Override
                         public void onCancelled(@NonNull DatabaseError databaseError) {
                             System.out.println("Recipe read failed: " + databaseError.getCode());
@@ -322,6 +334,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         });
     }
 
+    //Bottom nav bar
     @SuppressLint("NonConstantResourceId")
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {

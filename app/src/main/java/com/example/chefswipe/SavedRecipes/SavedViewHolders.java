@@ -20,6 +20,7 @@ public class SavedViewHolders extends RecyclerView.ViewHolder implements View.On
         super(itemView);
         itemView.setOnClickListener(this);
 
+        //Views for name, id, image
         mRecipeName = (TextView) itemView.findViewById(R.id.RecipeName);
         mRecipeID = (TextView) itemView.findViewById(R.id.RecipeID);
         mRecipeImage = (ImageView) itemView.findViewById(R.id.RecipeImage);
@@ -28,10 +29,12 @@ public class SavedViewHolders extends RecyclerView.ViewHolder implements View.On
 
     @Override
     public void onClick(View view) {
+        //Create intent and bundle with recipe id
         Intent intent = new Intent(view.getContext(), RecipeViewActivity.class);
         Bundle bundle = new Bundle();
         bundle.putString("recipeID", mRecipeID.getText().toString());
         intent.putExtras(bundle);
+        //Launch recipeviewactivity
         view.getContext().startActivity(intent);
     }
 

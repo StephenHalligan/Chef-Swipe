@@ -24,6 +24,7 @@ public class PublishedViewHolders extends RecyclerView.ViewHolder implements Vie
         super(itemView);
         itemView.setOnClickListener(this);
 
+        //Views for name, id and image
         mRecipeName = (TextView) itemView.findViewById(R.id.RecipeName);
         mRecipeID = (TextView) itemView.findViewById(R.id.RecipeID);
         mRecipeImage = (ImageView) itemView.findViewById(R.id.RecipeImage);
@@ -32,6 +33,7 @@ public class PublishedViewHolders extends RecyclerView.ViewHolder implements Vie
 
     @Override
     public void onClick(View view) {
+        //On click on item, put id and name in bundle and start recipeviewactivity with bundle
         Intent intent = new Intent(view.getContext(), RecipeViewActivity.class);
         Bundle bundle = new Bundle();
         bundle.putString("recipeID", mRecipeID.getText().toString());

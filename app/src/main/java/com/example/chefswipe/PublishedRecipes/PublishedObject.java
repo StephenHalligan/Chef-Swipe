@@ -6,6 +6,7 @@ public class PublishedObject {
     private String recipeID;
     private String recipeURL;
 
+    //Getters
     public PublishedObject(String recipeName, String recipeURL, String recipeID) {
         this.recipeName = recipeName;
         this.recipeID = recipeID;

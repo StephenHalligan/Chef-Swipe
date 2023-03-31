@@ -2,6 +2,7 @@ package com.example.chefswipe.Cards;
 
 public class Cards {
 
+    //Global variables used by card
     private String recipeId;
     private String recipeName;
     private String recipeURL;
@@ -11,6 +12,7 @@ public class Cards {
     private String recipeDesc;
 
 
+    //Getters for card
     public Cards(String recipeId, String recipeName, String recipeURL, String recipeTags, String recipeAuthor, int recipeLikes, String recipeDesc) {
         this.recipeId = recipeId;
         this.recipeName = recipeName;
@@ -28,7 +30,6 @@ public class Cards {
     public void setRecipeId(String recipeId) {
         this.recipeId = recipeId;
     }
-
 
     //Getters & setters recipeName
     public String getRecipeName() {

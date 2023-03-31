@@ -11,30 +11,22 @@ import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.animation.Animation;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import androidx.annotation.ColorInt;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-
 import com.example.chefswipe.SavedRecipes.SavedRecipesActivity;
-import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -42,22 +34,15 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.Query;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
-import com.skydoves.powerspinner.PowerSpinnerView;
-
-import org.w3c.dom.Text;
-
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 import java.util.UUID;
-import java.util.concurrent.atomic.AtomicMarkableReference;
 
 public class CreateActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
 
@@ -68,6 +53,7 @@ public class CreateActivity extends AppCompatActivity implements BottomNavigatio
     BottomNavigationView bottomNavigation;
     private ImageView recipeImage;
 
+    //Global vars
     String uploadedImage;
     String authorName;
     String authorUserId;
@@ -85,9 +71,11 @@ public class CreateActivity extends AppCompatActivity implements BottomNavigatio
 
         FirebaseFirestore db = FirebaseFirestore.getInstance();
 
+        //Set xml
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create);
 
+        //XML views
         recipeImage = (ImageView) findViewById(R.id.recipeImage);
         Button tagsButton = (Button) findViewById(R.id.tagsButton);
         ImageButton backButton = (ImageButton) findViewById(R.id.backButton);
@@ -95,6 +83,7 @@ public class CreateActivity extends AppCompatActivity implements BottomNavigatio
         Button imageButton = (Button) findViewById(R.id.imageButton);
         TextView cookbookText = (TextView) findViewById(R.id.cookbookText);
 
+        //Back button to main page
         backButton.setOnClickListener(view -> {
             Intent intent = new Intent(CreateActivity.this, MainActivity.class);
             startActivity(intent);
@@ -107,14 +96,15 @@ public class CreateActivity extends AppCompatActivity implements BottomNavigatio
         EditText recipeMethod = (EditText) findViewById(R.id.recipeMethod);
         EditText recipeDesc = (EditText) findViewById(R.id.recipeDesc);
 
-
+        //Create database instance
         FirebaseDatabase userDatabase = FirebaseDatabase.getInstance();
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
 
+        //Set user id
         userId = Objects.requireNonNull(mAuth.getCurrentUser()).getUid();
-
         authorUserId = userId;
 
+        //Create database ref
         DatabaseReference dbRef = userDatabase.getReference().child("Users").child(userId);
         dbRef.addValueEventListener(new ValueEventListener() {
             @Override
@@ -127,7 +117,10 @@ public class CreateActivity extends AppCompatActivity implements BottomNavigatio
             }
         });
 
+        //Publish save recipe button
         publishButton.setOnClickListener(view -> {
+
+            //Check if user has entered all fields
 
             if(recipeName.getText().toString().equals("")) {
                 Toast.makeText(getApplicationContext(),"Please enter a recipe name!",Toast.LENGTH_SHORT).show();
@@ -155,6 +148,8 @@ public class CreateActivity extends AppCompatActivity implements BottomNavigatio
             }
 
         });
+
+        //Button for adding recipe tags
 
         tagsButton.setOnClickListener(view -> {
             AlertDialog.Builder tagBuilder = new AlertDialog.Builder(CreateActivity.this);
@@ -192,6 +187,8 @@ public class CreateActivity extends AppCompatActivity implements BottomNavigatio
                 }
             });
 
+            //Save tags and add to an array, split at the comma
+
             tagBuilder.setPositiveButton("Save", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
@@ -218,6 +215,8 @@ public class CreateActivity extends AppCompatActivity implements BottomNavigatio
                     tagsButton.setVisibility(View.GONE);
                 }
             });
+
+            //Cancel tagbuilder
             tagBuilder.setNegativeButton("Cancel", null);
             AlertDialog dialog = tagBuilder.create();
             dialog.show();
@@ -226,6 +225,7 @@ public class CreateActivity extends AppCompatActivity implements BottomNavigatio
 
         Button cookbookButton = (Button) findViewById(R.id.cookbookButton);
 
+        //Button for selecting cookbook
         cookbookButton.setOnClickListener(view -> {
             AlertDialog.Builder tagBuilder = new AlertDialog.Builder(CreateActivity.this);
             TextView tagTitle = new TextView(CreateActivity.this);
@@ -239,6 +239,7 @@ public class CreateActivity extends AppCompatActivity implements BottomNavigatio
             boolean[] checkedItems = {false, false, false, false, false, false};
             tagBuilder.setMultiChoiceItems(tagList, checkedItems, new DialogInterface.OnMultiChoiceClickListener() {
                 public void onClick(DialogInterface dialogInterface, int i, boolean b) {
+                    //Ensure only 1 cookbook can be selected
                     for (int j = 0; j < checkedItems.length; j++) {
                         if (j == i) {
                             checkedItems[j] = true;
@@ -252,6 +253,7 @@ public class CreateActivity extends AppCompatActivity implements BottomNavigatio
                 }
             });
 
+            //Save cookbook selection
             tagBuilder.setPositiveButton("Save", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
@@ -264,11 +266,13 @@ public class CreateActivity extends AppCompatActivity implements BottomNavigatio
                     }
                 }
             });
+            //Cancel cookbook selection
             tagBuilder.setNegativeButton("Cancel", null);
             AlertDialog dialog = tagBuilder.create();
             dialog.show();
         });
 
+        //Choose image for recipe
         imageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -278,13 +282,13 @@ public class CreateActivity extends AppCompatActivity implements BottomNavigatio
 
     }
 
+    //Chooseimage function
     private void chooseImage() {
         Intent intent = new Intent();
         intent.setType("image/*");
         intent.setAction(Intent.ACTION_GET_CONTENT);
         startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE_REQUEST);
     }
-
 
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -304,9 +308,11 @@ public class CreateActivity extends AppCompatActivity implements BottomNavigatio
         }
     }
 
+    //Init storage
     FirebaseStorage storage = FirebaseStorage.getInstance();
     StorageReference storageReference = storage.getReference();
 
+    //Upload image to firebase
     private void uploadImage() {
         if(filePath != null)
         {
@@ -334,6 +340,7 @@ public class CreateActivity extends AppCompatActivity implements BottomNavigatio
                                         String editRecipeMethod = recipeMethod.getText().toString().replaceAll("\\n", ";@");
                                         String editRecipeDesc = recipeDesc.getText().toString().replaceAll("\\n", ";@");
 
+                                        //Create map of the inputted recipe info
                                         Map<String, Object> data = new HashMap<>();
                                         data.put("Name", editRecipeName);
                                         data.put("Ingredients", editRecipeIngredients);
@@ -350,6 +357,8 @@ public class CreateActivity extends AppCompatActivity implements BottomNavigatio
 
                                         FirebaseFirestore db = FirebaseFirestore.getInstance();
 
+                                        //Write a document with this info map
+
                                         userDb = FirebaseDatabase.getInstance().getReference().child("Users").child(userId).child("Published Recipes");
                                         db.collection("Cookbook").add(data).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                                                     @Override
@@ -359,6 +368,7 @@ public class CreateActivity extends AppCompatActivity implements BottomNavigatio
 
                                                     }
                                                 })
+                                                //If doc write fails
                                                 .addOnFailureListener(new OnFailureListener() {
                                                     @Override
                                                     public void onFailure(@NonNull Exception e) {
@@ -366,6 +376,7 @@ public class CreateActivity extends AppCompatActivity implements BottomNavigatio
                                                     }
                                                 });
 
+                                        //Launch back into main activity with fade animation
                                         Intent intent;
                                         intent = new Intent(CreateActivity.this, MainActivity.class);
                                         startActivity(intent);
@@ -376,7 +387,6 @@ public class CreateActivity extends AppCompatActivity implements BottomNavigatio
                                 }
                             });
                             progressDialog.dismiss();
-                            Toast.makeText(CreateActivity.this, "Published!", Toast.LENGTH_SHORT).show();
                         }
                     })
                     .addOnFailureListener(new OnFailureListener() {
@@ -397,6 +407,8 @@ public class CreateActivity extends AppCompatActivity implements BottomNavigatio
         }
     }
 
+
+    //bottom nav bar
     @SuppressLint("NonConstantResourceId")
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 

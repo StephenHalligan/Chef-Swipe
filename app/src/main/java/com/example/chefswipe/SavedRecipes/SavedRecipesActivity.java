@@ -35,12 +35,12 @@ public class SavedRecipesActivity extends AppCompatActivity implements BottomNav
 
     private RecyclerView.Adapter mSavedAdapter;
 
+    //Init db
     FirebaseFirestore db = FirebaseFirestore.getInstance();
 
     private String currentUserID;
 
     String userCookbook;
-
     String recipeURL;
     String recipeName;
 
@@ -49,16 +49,20 @@ public class SavedRecipesActivity extends AppCompatActivity implements BottomNav
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        //Set xml layout
         setContentView(R.layout.activity_saved_recipes);
 
+        //Create bottom nav
         bottomNavigation = findViewById(R.id.bottomNavigation);
-
         bottomNavigation.setOnNavigationItemSelectedListener(this);
         bottomNavigation.setSelectedItemId(R.id.saved);
 
+        //Init firebase auth and get user id
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
         currentUserID = Objects.requireNonNull(mAuth.getCurrentUser()).getUid();
 
+        //Init recyclerview
         RecyclerView mRecyclerView = (RecyclerView) findViewById(R.id.recyclerView);
         mRecyclerView.setNestedScrollingEnabled(false);
         mRecyclerView.setHasFixedSize(true);
@@ -75,6 +79,7 @@ public class SavedRecipesActivity extends AppCompatActivity implements BottomNav
 
         DatabaseReference userDb = FirebaseDatabase.getInstance().getReference().child("Users").child(userId);
 
+        //Create listener on ref for database
         DatabaseReference ref = userDatabase.getReference().child("Users").child(userId);
         ref.addValueEventListener(new ValueEventListener() {
             @Override
@@ -91,15 +96,18 @@ public class SavedRecipesActivity extends AppCompatActivity implements BottomNav
     }
 
     private void getSavedRecipeID() {
+        //Get saved recipes
         DatabaseReference savedDb = FirebaseDatabase.getInstance().getReference().child("Users").child(currentUserID).child("Saved Recipes");
         savedDb.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()) {
+                    //Cycle through saved recipes list and get key
                     for (DataSnapshot savedRecipe : dataSnapshot.getChildren()) {
                         FetchSavedRecipeInformation(savedRecipe.getKey());
                     }
                 }
+                //If saved recipes dont exist, display textview
                 else if (!dataSnapshot.exists()) {
                     TextView noRecipes = (TextView) findViewById(R.id.noRecipes);
                     noRecipes.setVisibility(View.VISIBLE);
@@ -123,18 +131,21 @@ public class SavedRecipesActivity extends AppCompatActivity implements BottomNav
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if (snapshot.exists()) {
                     String recipeID = snapshot.getKey();
-
+                    //If saved recipe exists, look for it in firestore documents
                     CollectionReference colRef = db.collection("Cookbook");
                     colRef.get().addOnCompleteListener(task -> {
                         if (task.isSuccessful()) {
                             for (QueryDocumentSnapshot document : task.getResult()) {
+                                //If saved recipe id matches document id, set vars and display it
                                 if (document.getId().equals(recipeID)) {
                                     recipeURL = document.getString("URL");
                                     recipeName = document.getString("Name");
 
                                     SavedObject obj = new SavedObject(recipeID, recipeURL, recipeName);
+                                    //Add recipe to list
                                     resultsSavedRecipes.add(obj);
 
+                                    //Tell saved adapter to update
                                     mSavedAdapter.notifyDataSetChanged();
                                 }
                             }
@@ -156,6 +167,7 @@ public class SavedRecipesActivity extends AppCompatActivity implements BottomNav
         return resultsSavedRecipes;
     }
 
+    //Bottom nav bar
     @SuppressLint("NonConstantResourceId")
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         Intent intent;
