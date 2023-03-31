@@ -242,10 +242,6 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
     }
 
 
-
-
-
-
     public void getRecipeID(Object dataObject) {
         Cards obj = (Cards) dataObject;
         Intent intent = new Intent(MainActivity.this, CommentsActivity.class);
