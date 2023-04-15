@@ -87,7 +87,7 @@ public class RecipeViewActivity extends AppCompatActivity {
         //Recipe author's profile button
         Button recipeAuthor = (Button) findViewById(R.id.recipeAuthor);
         recipeAuthor.setOnClickListener(view -> {
-            if(!Objects.equals(recipeAuthorID, "")) {
+            if(!Objects.equals(recipeAuthorID, "null")) {
                 Intent intent = new Intent(view.getContext(), ViewUserProfileActivity.class);
                 Bundle bundleProfile = new Bundle();
                 //put author id in intent bundle
