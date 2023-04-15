@@ -209,7 +209,6 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
             public void onLeftCardExit(Object dataObject) {
                 Cards obj = (Cards) dataObject;
                 dbRecipeName = obj.getRecipeName();
-                userDb.child("Saved Recipes").child(dbRecipeName).removeValue();
                 updateArrayAdapter();
             }
 

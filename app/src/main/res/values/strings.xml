@@ -39,7 +39,7 @@
     <string-array name="dietary_tags">
         <item>Vegan</item>
         <item>Vegetarian</item>
-        <item>Gluten-Free</item>
+        <item>Gluten-free</item>
         <item>Egg-free</item>
         <item>Nut-free</item>
         <item>Fish-free</item>
